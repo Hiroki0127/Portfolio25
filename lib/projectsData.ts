@@ -30,7 +30,7 @@ export const projects: Project[] = [
       "/projects/outfitease-1.png",
       "/projects/outfitease-2.png",
       "/projects/outfitease-3.png",
-      "/projects/outfitease-thumbnail.png"
+      "/projects/outfitease-4.png"
     ],
     purpose: "OutfitEase solves the everyday challenge of wardrobe management and outfit planning. The app helps users digitize their wardrobe, create outfit combinations, plan looks on a calendar, and engage with a community of fashion enthusiasts. It combines practical organization tools with social features to make fashion management both functional and enjoyable.",
     goals: [
