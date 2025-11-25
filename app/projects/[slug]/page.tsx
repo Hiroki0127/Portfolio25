@@ -110,8 +110,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                   <Image
                     src={screenshot}
                     alt={`${project.title} screenshot ${index + 1}`}
-                    width={400}
-                    height={600}
+                    width={200}
+                    height={300}
                     className="max-w-full h-auto object-contain"
                   />
                 </div>
