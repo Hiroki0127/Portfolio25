@@ -24,8 +24,8 @@ export const projects: Project[] = [
     slug: "outfitease",
     title: "OutfitEase",
     shortDescription: "Fashion outfit management app with Node.js backend and iOS frontend, helping users organize and plan their wardrobe.",
-    thumbnail: "/projects/outfitease-thumbnail.png", // You'll add actual images later
-    demoVideo: "", // Optional: YouTube or video URL
+    thumbnail: "/projects/outfitease-thumbnail.png", 
+    demoVideo: "https://youtu.be/_bSQ50m5GiE", 
     screenshots: [
       "/projects/outfitease-1.png",
       "/projects/outfitease-2.png",

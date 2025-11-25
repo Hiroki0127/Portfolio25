@@ -64,15 +64,35 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         {/* Demo Video Section */}
         {project.demoVideo && (
           <section className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Demo Video</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Demo Walkthrough</h2>
             <div className="aspect-video bg-gray-200 rounded-xl overflow-hidden shadow-lg">
-              {/* Replace with actual video embed */}
-              <iframe
-                src={project.demoVideo}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              {project.demoVideo.includes('youtube.com') || project.demoVideo.includes('youtu.be') ? (
+                // YouTube embed
+                <iframe
+                  src={project.demoVideo.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : project.demoVideo.startsWith('/') || project.demoVideo.startsWith('http') ? (
+                // Direct video file (MP4, WebM, etc.)
+                <video
+                  src={project.demoVideo}
+                  controls
+                  className="w-full h-full object-contain"
+                  preload="metadata"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                // Already formatted embed URL
+                <iframe
+                  src={project.demoVideo}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
             </div>
           </section>
         )}
