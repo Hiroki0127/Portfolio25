@@ -101,18 +101,18 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         {project.screenshots && project.screenshots.length > 0 && (
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Screenshots</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.screenshots.map((screenshot, index) => (
                 <div
                   key={index}
-                  className="bg-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow flex justify-center"
+                  className="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
                 >
                   <Image
                     src={screenshot}
                     alt={`${project.title} screenshot ${index + 1}`}
-                    width={267}
-                    height={400}
-                    className="w-1/3 h-auto object-contain"
+                    width={600}
+                    height={900}
+                    className="w-full h-auto object-contain"
                   />
                 </div>
               ))}
