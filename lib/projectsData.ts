@@ -90,7 +90,7 @@ export const projects: Project[] = [
   {
     slug: "toeic-learning-assistant",
     title: "ToeicLearningAssistant",
-    shortDescription: "An AI-powered study app designed to help learners prepare for the TOEIC exam with flashcards, progress tracking, and modern AI techniques.",
+    shortDescription: "A full-stack web application for TOEIC exam preparation featuring an AI-powered assistant with RAG (Retrieval-Augmented Generation) and Knowledge Graph integration to generate practice questions grounded in actual TOEIC content.",
     thumbnail: "/projects/toeic-thumbnail.png",
     demoVideo: "",
     screenshots: [
@@ -98,50 +98,73 @@ export const projects: Project[] = [
       "/projects/toeic-2.png",
       "/projects/toeic-3.png"
     ],
-    purpose: "The TOEIC exam is crucial for many students and professionals, but traditional study methods can be inefficient and demotivating. This app leverages AI to create a personalized learning experience that adapts to each user's strengths and weaknesses, making TOEIC preparation more effective and engaging.",
+    purpose: "Most TOEIC study apps use generic AI responses that don't match the actual exam format. This application solves that problem by using RAG to retrieve relevant context from official TOEIC questions and flashcards stored in the database, then generates practice questions that match the format, vocabulary, and style of the real exam. The Knowledge Graph automatically enhances responses with related vocabulary concepts and grows organically from user interactions.",
     goals: [
-      "Develop an adaptive learning system that focuses on user's weak areas",
-      "Integrate AI for generating contextual practice questions and explanations",
-      "Create an engaging UI that encourages daily practice and habit formation",
-      "Track detailed progress metrics to show measurable improvement over time"
+      "Implement RAG system that retrieves relevant TOEIC content from database to ground AI responses",
+      "Build Knowledge Graph that automatically grows from user interactions and enhances AI responses",
+      "Create AI assistant that generates Part 5, 6, and 7 practice questions matching real exam format",
+      "Develop comprehensive progress tracking with XP-based leveling system, study streaks, and analytics",
+      "Implement smart flashcard recommendations based on weak areas, spaced repetition, and knowledge graph relationships",
+      "Build real-time notification system for achievements, study streaks, and reminders"
     ],
     techStack: [
       {
-        name: "TypeScript & React",
-        description: "Frontend built with TypeScript for type safety and React for component-based architecture, ensuring maintainable and scalable code."
+        name: "Next.js & TypeScript",
+        description: "Frontend built with Next.js for server-side rendering and TypeScript for type safety. Deployed on Vercel with automatic deployments from GitHub."
       },
       {
         name: "Node.js & Express",
-        description: "Backend server handling user authentication, progress tracking, and API integrations with AI services."
+        description: "RESTful API backend with structured MVC architecture. Handles authentication, AI services, RAG queries, and all business logic. Deployed on Render with automatic database migrations."
       },
       {
-        name: "OpenAI API",
-        description: "Integrated for generating contextual vocabulary explanations, example sentences, and adaptive practice questions."
+        name: "PostgreSQL & Prisma",
+        description: "Relational database for storing users, flashcards, quizzes, study sessions, and Knowledge Graph nodes/relationships. Prisma ORM provides type-safe database access and migrations."
       },
       {
-        name: "MongoDB",
-        description: "NoSQL database storing user progress, flashcard decks, and learning analytics with flexible schema for rapid iteration."
+        name: "Groq API",
+        description: "AI service for generating practice questions, vocabulary explanations, and general chat. Integrated with RAG system to ensure responses match TOEIC format and style."
       },
       {
-        name: "Chart.js",
-        description: "Data visualization library for displaying progress charts and performance analytics."
+        name: "RAG System",
+        description: "Custom Retrieval-Augmented Generation system that loads all flashcards and questions into memory on startup, then retrieves relevant context to ground AI responses in actual TOEIC content."
+      },
+      {
+        name: "Knowledge Graph",
+        description: "Auto-growing graph of vocabulary relationships. Automatically creates nodes from flashcards and relationships from study patterns. Enhances AI responses and powers smart recommendations."
+      },
+      {
+        name: "Zustand",
+        description: "State management for frontend, providing clean separation of concerns and easy testing with proper mocking strategies."
       }
     ],
     problems: [
       {
-        problem: "AI Response Latency: Initial implementation caused noticeable delays when generating explanations, disrupting the learning flow.",
-        solution: "Implemented response caching for common queries and added optimistic UI with skeleton loaders. Also used streaming responses for real-time feedback during generation."
+        problem: "RAG Implementation: Ensuring AI-generated questions match actual TOEIC format and style rather than generic English questions.",
+        solution: "Implemented custom RAG system that retrieves relevant context from database and uses structured prompts that enforce correct formatting (e.g., Part 6 must have 4 questions numbered 1-4, realistic business documents). Knowledge Graph automatically enhances responses with related vocabulary concepts."
       },
       {
-        problem: "Spaced Repetition Algorithm: Standard flashcard intervals weren't optimal for TOEIC-specific vocabulary retention.",
-        solution: "Customized the SM-2 algorithm based on TOEIC difficulty levels and user performance data, resulting in 40% better retention rates in user testing."
+        problem: "Test Mocking: Tests were making real API calls and database connections, causing failures and costs.",
+        solution: "Implemented comprehensive mocking: Prisma client mocking with proper hoisting, Groq SDK mocking to prevent real API calls, Zustand store mocking for frontend tests. Achieved 88% test coverage (68/74 tests passing) with proper isolation of all external dependencies."
       },
       {
-        problem: "Cost Management: OpenAI API costs were becoming prohibitive during peak usage.",
-        solution: "Implemented intelligent prompt caching, batch processing for similar queries, and a hybrid approach using local models for simple tasks while reserving API calls for complex explanations."
+        problem: "Conversation History: Maintaining full conversation context like ChatGPT while staying within token limits.",
+        solution: "Implemented token-aware trimming: estimate tokens (~4 chars per token), keep system prompt and most recent 20 messages, trim oldest messages if approaching limit. Maintains context while preventing token overflow."
+      },
+      {
+        problem: "Knowledge Graph Integration & Auto-Growth: Enhancing AI responses with vocabulary relationships while allowing the graph to grow organically from user interactions.",
+        solution: "Integrated Knowledge Graph queries into RAG service to automatically enhance AI responses. Implemented auto-growth system that creates nodes from flashcards and relationships from study patterns. Relationships strengthen based on co-study frequency and definition similarity. Graceful fallback if Knowledge Graph data is unavailable."
+      },
+      {
+        problem: "Leveling System: Creating a fair XP-based leveling system that rewards various study activities.",
+        solution: "Designed multi-factor XP system: flashcards studied (10 XP), correct answers (5 XP), quiz attempts (50 XP base + score-based bonus), study streaks (20 XP per day), study time (1 XP per minute). Provides balanced progression that rewards consistent study habits."
+      },
+      {
+        problem: "Study Session Tracking: Accurately tracking study time and preventing inflated totals from bad data.",
+        solution: "Track actual start/end times for sessions, filter out invalid durations (zero or negative) in calculations. Provide scripts to analyze and fix historical data. Ensures accurate progress metrics."
       }
     ],
-    github: "https://github.com/Hiroki0127/ToeicLearningAssistant"
+    github: "https://github.com/Hiroki0127/ToeicLearningAssistant",
+    demo: "https://toeic-learning-assistant-frontend-a.vercel.app/"
   },
   {
     slug: "tasty-compass",
