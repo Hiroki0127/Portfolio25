@@ -105,14 +105,14 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               {project.screenshots.map((screenshot, index) => (
                 <div
                   key={index}
-                  className="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
+                  className="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow flex justify-center"
                 >
                   <Image
                     src={screenshot}
                     alt={`${project.title} screenshot ${index + 1}`}
-                    width={600}
-                    height={900}
-                    className="w-full h-auto object-contain"
+                    width={400}
+                    height={600}
+                    className="max-w-full h-auto object-contain"
                   />
                 </div>
               ))}
