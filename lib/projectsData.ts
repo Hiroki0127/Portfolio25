@@ -23,7 +23,7 @@ export const projects: Project[] = [
   {
     slug: "outfitease",
     title: "OutfitEase",
-    shortDescription: "Fashion outfit management app with Node.js backend and iOS frontend, helping users organize and plan their wardrobe.",
+    shortDescription: "SwiftUI iOS application with Node.js/Express backend for managing wardrobe, building outfits, planning looks on a calendar, and sharing posts with the community.",
     thumbnail: "/projects/outfitease-thumbnail.png", 
     demoVideo: "https://youtu.be/_bSQ50m5GiE", 
     screenshots: [
@@ -31,43 +31,57 @@ export const projects: Project[] = [
       "/projects/outfitease-2.png",
       "/projects/outfitease-3.png"
     ],
-    purpose: "OutfitEase was created to solve the everyday problem of deciding what to wear. Many people struggle with outfit planning, often forgetting what clothes they own or how to mix and match items effectively. This app aims to digitize your wardrobe and provide smart suggestions for outfit combinations.",
+    purpose: "OutfitEase solves the everyday challenge of wardrobe management and outfit planning. The app helps users digitize their wardrobe, create outfit combinations, plan looks on a calendar, and engage with a community of fashion enthusiasts. It combines practical organization tools with social features to make fashion management both functional and enjoyable.",
     goals: [
-      "Create an intuitive interface for users to catalog their clothing items",
-      "Implement outfit suggestion algorithm based on weather and occasions",
-      "Build a cross-platform solution with iOS frontend and Node.js backend",
-      "Enable users to plan outfits in advance and track their favorite combinations"
+      "Build a comprehensive wardrobe management system with detailed clothing item tracking (brand, price, season, occasion)",
+      "Enable users to create and manage outfits by combining clothing items with style tags and metadata",
+      "Implement calendar-based outfit planning for scheduling looks on specific dates",
+      "Create a community feed with posts, likes, comments, and user profiles with follower/following functionality",
+      "Integrate weather data for context-aware outfit suggestions",
+      "Provide secure authentication with email/password and Google Sign-In using JWT sessions"
     ],
     techStack: [
       {
-        name: "Swift & SwiftUI",
-        description: "Used for building the native iOS frontend with modern declarative UI patterns, providing smooth animations and responsive user experience."
+        name: "SwiftUI & MVVM",
+        description: "Native iOS frontend built with SwiftUI using MVVM architecture pattern. Features async/await for API calls, custom API client with retry logic, pull-to-refresh functionality, and token persistence. Achieved 97.76% unit test coverage."
       },
       {
         name: "Node.js & Express",
-        description: "Backend API server handling user authentication, data storage, and outfit recommendation logic."
+        description: "RESTful API backend with structured MVC architecture (controllers/models). Handles JWT authentication, request validation, error handling, and provides comprehensive endpoints for all app features including authentication, clothing management, outfits, community posts, and planning."
       },
       {
-        name: "PostgreSQL",
-        description: "Relational database for storing user profiles, clothing items, and outfit combinations with complex relationships."
+        name: "Supabase PostgreSQL",
+        description: "Managed PostgreSQL database with session pooler for connection management. Uses SSL connections, array fields for tags, and includes a follow relationship join table. Database schema supports users, clothing items, outfits, posts, comments, likes, and outfit planning."
       },
       {
-        name: "AWS S3",
-        description: "Cloud storage for user-uploaded photos of clothing items, ensuring scalable and reliable image hosting."
+        name: "Cloudinary",
+        description: "Cloud-based media storage for clothing item photos and outfit images. Handles direct base64 uploads from iOS client and provides secure URLs for image delivery with optimization."
+      },
+      {
+        name: "Render",
+        description: "Production hosting for the backend API. Free tier deployment with 50-60 second spin-up time handled gracefully by client-side retry logic and warm-up pings."
+      },
+      {
+        name: "OpenWeather API",
+        description: "Weather integration for providing context-aware outfit recommendations based on current and forecasted weather conditions."
       }
     ],
     problems: [
       {
-        problem: "Image Processing Performance: Initial implementation had slow upload times when users added multiple clothing items, causing poor UX.",
-        solution: "Implemented client-side image compression before upload and added background processing for thumbnail generation, reducing upload times by 70%."
+        problem: "Render Free Tier Cold Starts: The backend takes 50-60 seconds to wake up on the free tier, causing timeout errors on first request.",
+        solution: "Implemented client-side retry logic with exponential backoff and a warm-up ping mechanism. The iOS app shows a loading spinner during warm-up and automatically retries failed requests, providing a smooth user experience despite the cold start delay."
       },
       {
-        problem: "Data Synchronization: Users experienced data conflicts when using the app on multiple devices simultaneously.",
-        solution: "Implemented optimistic UI updates with conflict resolution using timestamps and version control, ensuring smooth multi-device experience."
+        problem: "Database Connection Issues: Initial connection to Supabase was failing with SSL certificate errors and IPv6 connectivity issues.",
+        solution: "Configured Supabase session pooler (port 6543) to use IPv4 connections and set `sslmode=require` in the connection string. Updated database connection handler to properly handle SSL certificates with `rejectUnauthorized: false` for development."
       },
       {
-        problem: "Outfit Recommendation Algorithm: Initial random suggestions weren't relevant to users' style preferences.",
-        solution: "Developed a machine learning model that learns from user's favorite combinations and outfit selections, improving recommendation relevance by analyzing color compatibility and style patterns."
+        problem: "Image Upload Performance: Uploading multiple clothing item photos was slow and blocking the UI thread.",
+        solution: "Implemented async image uploads with Cloudinary using base64 encoding directly from the iOS client. Added background processing for image optimization and thumbnail generation, ensuring the UI remains responsive during uploads."
+      },
+      {
+        problem: "Data Synchronization: Users needed to manually refresh to see new community posts and updates.",
+        solution: "Implemented pull-to-refresh functionality across all feed views and added automatic data refresh on view appearance. Used async/await patterns to ensure smooth data loading without blocking the main thread."
       }
     ],
     github: "https://github.com/Hiroki0127/OutfitEase"
