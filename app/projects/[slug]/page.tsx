@@ -101,19 +101,12 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         {project.screenshots && project.screenshots.length > 0 && (
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Screenshots</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {project.screenshots.map((screenshot, index) => (
                 <div
                   key={index}
-                  className="bg-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow aspect-video flex items-center justify-center"
+                  className="bg-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow aspect-video"
                 >
-                  {/* Placeholder - replace with actual images */}
-                  <div className="text-gray-500 text-center p-8">
-                    <p className="font-medium">Screenshot {index + 1}</p>
-                    <p className="text-sm mt-2">Add your image to:</p>
-                    <p className="text-xs font-mono mt-1">{screenshot}</p>
-                  </div>
-                  {/* Uncomment when you have images:
                   <Image
                     src={screenshot}
                     alt={`${project.title} screenshot ${index + 1}`}
@@ -121,7 +114,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                     height={600}
                     className="w-full h-full object-cover"
                   />
-                  */}
                 </div>
               ))}
             </div>
