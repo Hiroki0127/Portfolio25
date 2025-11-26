@@ -94,9 +94,10 @@ export const projects: Project[] = [
     thumbnail: "/projects/toeic-thumbnail.png",
     demoVideo: "",
     screenshots: [
-      "/projects/toeic-1.png",
-      "/projects/toeic-2.png",
-      "/projects/toeic-3.png"
+      "/projects/toeic-learning-assistant1.png",
+      "/projects/toeic-learning-assistant2.png",
+      "/projects/toeic-learning-assistant3.png",
+      "/projects/toeic-learning-assistant4.png"
     ],
     purpose: "Most TOEIC study apps use generic AI responses that don't match the actual exam format. This application solves that problem by using RAG to retrieve relevant context from official TOEIC questions and flashcards stored in the database, then generates practice questions that match the format, vocabulary, and style of the real exam. The Knowledge Graph automatically enhances responses with related vocabulary concepts and grows organically from user interactions.",
     goals: [
