@@ -104,14 +104,18 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 justify-items-center">
               {project.screenshots.map((screenshot, index) => (
-                <Image
+                <div
                   key={index}
-                  src={screenshot}
-                  alt={`${project.title} screenshot ${index + 1}`}
-                  width={200}
-                  height={300}
-                  className="block max-w-full h-auto"
-                />
+                  className={project.slug === "toeic-learning-assistant" ? "w-full aspect-video overflow-hidden rounded-xl" : ""}
+                >
+                  <Image
+                    src={screenshot}
+                    alt={`${project.title} screenshot ${index + 1}`}
+                    width={200}
+                    height={300}
+                    className={project.slug === "toeic-learning-assistant" ? "w-full h-full object-cover" : "block max-w-full h-auto"}
+                  />
+                </div>
               ))}
             </div>
           </section>
